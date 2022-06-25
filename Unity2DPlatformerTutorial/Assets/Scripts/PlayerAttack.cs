@@ -34,7 +34,22 @@ public class PlayerAttack : MonoBehaviour
         CooldownTimer = 0;
         animator.SetTrigger("Attack");
 
-        Fireballs[0].transform.position = FirePoint.position;
-        Fireballs[0].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+        var fireBallToShoot = FindFireball();
+
+        Fireballs[fireBallToShoot].transform.position = FirePoint.position;
+        Fireballs[fireBallToShoot].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+    }
+
+    int FindFireball()
+    {
+        for (int f = 0; f < Fireballs.Length; f++)
+        {
+            if (!Fireballs[f].activeInHierarchy)
+            {
+                return f;
+            }
+        }
+
+        return 0;
     }
 }

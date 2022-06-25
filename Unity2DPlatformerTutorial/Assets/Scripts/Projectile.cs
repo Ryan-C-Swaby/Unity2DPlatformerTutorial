@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Animator animator;
     private float direction;
+    private float lifeTime;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,14 +28,21 @@ public class Projectile : MonoBehaviour
 
         float movementSpeed = Speed * Time.deltaTime * direction;
         transform.Translate(movementSpeed, 0, 0);
+
+        lifeTime += Time.deltaTime;
+
+        if(lifeTime > 5)
+        {
+            Deactivate();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + .22f, transform.localPosition.z);
         hit = true;
         boxCollider.enabled = false;
         animator.SetTrigger("Explode");
-        Deactivate();
     }
 
     public void SetDirection(float _direction)
@@ -56,5 +64,6 @@ public class Projectile : MonoBehaviour
     void Deactivate()
     {
         gameObject.SetActive(false);
+        lifeTime = 0;
     }
 }
