@@ -44,11 +44,15 @@ public class MovePlayer : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        animator.SetBool("Run", horizontalInput != 0);
+        if(animator.GetBool("Grounded"))
+        {
+            animator.SetBool("Run", horizontalInput != 0);
+        }
     }
 
     void Jump()
     {
+        animator.SetBool("Run", false);
         animator.SetBool("Grounded", false);
         animator.SetTrigger("Jump");
         body.velocity = new Vector2(body.velocity.x, JumpHeight);
