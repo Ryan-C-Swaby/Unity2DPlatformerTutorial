@@ -70,6 +70,6 @@ public class MovePlayer : MonoBehaviour
 
     public bool CanAttack()
     {
-        return horizontalInput == 0f && IsGrounded();
+        return true;
     }
 }
