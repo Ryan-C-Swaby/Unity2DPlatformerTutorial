@@ -5,7 +5,6 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     private Rigidbody2D body;
-    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private float horizontalInput;
    
@@ -17,7 +16,6 @@ public class MovePlayer : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
@@ -39,11 +37,11 @@ public class MovePlayer : MonoBehaviour
 
         if (horizontalInput > 0f)
         {
-            spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(1,1,1);
         }
         else if (horizontalInput < 0f)
         {
-            spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(-1, 1, 1);
         }
 
         animator.SetBool("Run", horizontalInput != 0);
