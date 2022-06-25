@@ -7,6 +7,7 @@ public class MovePlayer : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private float horizontalInput;
    
 
     public float RunSpeed;
@@ -20,8 +21,10 @@ public class MovePlayer : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        horizontalInput = Input.GetAxis("Horizontal");
+
         MoveLeftOrRight();
 
         if (Input.GetKey(KeyCode.Space) && IsGrounded())
@@ -32,8 +35,6 @@ public class MovePlayer : MonoBehaviour
 
     void MoveLeftOrRight()
     {
-        var horizontalInput = Input.GetAxis("Horizontal");
-
         body.velocity = new Vector2(horizontalInput * RunSpeed, body.velocity.y);
 
         if (horizontalInput > 0f)
@@ -67,5 +68,10 @@ public class MovePlayer : MonoBehaviour
     private bool IsGrounded()
     {
         return animator.GetBool("Grounded");
+    }
+
+    public bool CanAttack()
+    {
+        return horizontalInput == 0f && IsGrounded();
     }
 }
