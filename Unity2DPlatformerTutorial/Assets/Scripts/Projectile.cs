@@ -39,10 +39,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + .22f, transform.localPosition.z);
-        hit = true;
-        boxCollider.enabled = false;
-        animator.SetTrigger("Explode");
+        if(collision.tag != "CameraConfiner")
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + .22f, transform.localPosition.z);
+            hit = true;
+            boxCollider.enabled = false;
+            animator.SetTrigger("Explode");
+        }
     }
 
     public void SetDirection(float _direction)
